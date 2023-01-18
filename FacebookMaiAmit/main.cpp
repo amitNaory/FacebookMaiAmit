@@ -9,7 +9,8 @@ int main() {
 	Facebook network;
 	try
 	{
-		network.initial(inFile);
+		network.readDataFromFile(inFile);
+		//network.initial(inFile);
 		network.start();
 		network.freeFriends();
 		network.freeFanPages();
@@ -22,4 +23,6 @@ int main() {
 	{
 		cout << e.what() << endl;
 	}
+
+	return 0;
 }

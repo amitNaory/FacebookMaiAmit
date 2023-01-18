@@ -28,7 +28,7 @@ public:
 	void showAllStatuses() const;
 	int getFansSize() const;
 	void saveFansToFile(ostream& file) const;
-	void readFansToFile(ostream& file) const;
+	void readFansToFile(ostream& file);
 
 	FanPage& operator+=(Friend& newFriend)
 	{

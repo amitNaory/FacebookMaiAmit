@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+#include <fstream>
 #include "FanPage.h"
 #include "Friend.h"
 
@@ -173,3 +173,4 @@ void Friend::savePagesToFile(ostream& file) const
 		file << pages[i]->getName() << endl;
 	}
 }
+
