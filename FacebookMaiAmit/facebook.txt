@@ -1,12 +1,37 @@
-3
-Mai Chaouat 
+4
+Mai Chaouat
 19 8 1998
-Amit Naory 
+Amit Naory
 20 1 1997
-Ran Danker 
+Ran Danker
 1 1 1980
+amitush
+27 12 1997
 3
 Please give us A
 We love cpp
-Hello world
+2
+Amit Naory
+Ran Danker
+2
 
+We love cpp
+1
+Mai Chaouat
+1
+
+1
+Mai Chaouat
+2
+Please give us A
+We love cpp
+0
+0
+2
+Mai Chaouat
+Amit Naory
+1
+Ran Danker
+2
+Mai Chaouat
+Ran Danker
