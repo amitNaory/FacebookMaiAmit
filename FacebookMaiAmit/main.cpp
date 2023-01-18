@@ -11,9 +11,9 @@ int main() {
 	{
 		network.initial(inFile);
 		network.start();
+		network.saveDataToFile(outFile);
 		network.freeFriends();
 		network.freeFanPages();
-		network.saveDataToFile(outFile);
 		inFile.close();
 		outFile.close();
 		cout << "Thank you for using Facebook!" << endl;
