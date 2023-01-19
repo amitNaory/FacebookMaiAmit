@@ -43,6 +43,7 @@ public:
 	void saveDataToFile(ostream& file) const;
 	void saveFriendsToFile(ostream& file) const;
 	void savePagesToFile(ostream& file) const;
+	
 
 	Friend& operator+=(Friend& newFriend)
 	{

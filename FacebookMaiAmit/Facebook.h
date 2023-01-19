@@ -38,9 +38,18 @@ public:
 	void start();
 	void initial(ifstream& inFile) noexcept(false);
 	void saveDataToFile(ofstream& outFile) const;
+	Friend* findFriendbyName(string name) const;
+	FanPage* findFanPagebyName(string name) const;
+	void readDataFromFile(ifstream& inFile);
+	void readFriendsToFile(ifstream& file, Friend& f);
+	void readFriendsToFile(ifstream& file, FanPage& p);
+	void readFanPageToFile(ifstream& file, Friend& f);
+	void updateReadFile(ifstream& inFile, ofstream& outFile) const;
+	
 
 private:
 	void option1() noexcept(false);
+	bool isNameExist(string name);
 	void option2() noexcept(false);
 	void option3() noexcept(false);
 	void option4() noexcept(false);

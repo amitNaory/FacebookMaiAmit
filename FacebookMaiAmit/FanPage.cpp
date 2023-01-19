@@ -70,13 +70,4 @@ void FanPage::saveFansToFile(ostream& file) const
 	}
 }
 
-void FanPage::readFansToFile(ostream& file) const
-{
-	int size;
-	string name;
-	file >> size >> endl;
-	for (int i = 0; i < size; i++)
-	{
-		file >> name >> endl;
-	}
-}
+

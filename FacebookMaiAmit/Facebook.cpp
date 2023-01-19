@@ -253,11 +253,26 @@ void Facebook::option1() noexcept(false)
 
 	cout << "Please enter the new member name: " << endl;
 	getline(cin, name);
+	if (isNameExist(name))
+		throw invalid_argument("name already exist in system");
 	cout << "Please enter the new member date of birth. format:DD MM YYYY" << endl;
 	cin >> day >> month >> year;
 	Friend* newFriend = new Friend(name, day, month, year);
 	addFriend(*newFriend);
 }
+
+//return true if name exist in facebook friends
+bool Facebook::isNameExist(string name)
+{
+	for (int i = 0; i < friends.size(); i++)
+	{
+		if (friends[i]->getName() == name)
+			return true;
+	}
+	return false;
+}
+
+
 
 
 //add new fanPage to facebook
@@ -504,13 +519,13 @@ void Facebook::showFanPagesOfFriend(const Friend& f) const
 void Facebook::saveDataToFile(ofstream& outFile) const
 {
 	//all friends data
-	outFile << friends.size();
+	outFile << friends.size()<<endl;
 	for (int i = 0; i < friends.size(); i++)
 	{
 		friends[i]->saveDataToFile(outFile);
 	}
 	//all fan pages data
-	outFile << fanPages.size();
+	outFile << fanPages.size() << endl;
 	for (int i = 0; i < fanPages.size(); i++)
 	{
 		outFile << fanPages[i]->getName() << endl;
@@ -527,5 +542,150 @@ void Facebook::saveDataToFile(ofstream& outFile) const
 	for (int i = 0; i < fanPages.size(); i++)
 	{
 		fanPages[i]->saveFansToFile(outFile);
+	}
+}
+
+//return the friend pointer with input name
+Friend* Facebook::findFriendbyName(string name) const
+{
+	for (int i = 0; i < friends.size(); i++)
+	{
+		if (friends[i]->getFriendName() == name)
+			return friends[i];
+		
+	}
+	return nullptr;
+}
+
+//return the fan page pointer with input name
+FanPage* Facebook::findFanPagebyName(string name) const
+{
+	for (int i = 0; i < friends.size(); i++)
+	{
+		if (fanPages[i]->getName() == name)
+			return fanPages[i];
+
+	}
+	return nullptr;
+}
+
+void Facebook::readDataFromFile(ifstream& inFile)
+{
+	int sizeFriends, sizeFanPage;
+
+	string first_name, last_name, name;
+	int d, m, y, size;
+	//all friends data
+	inFile >> sizeFriends;
+	for (int i = 0; i < sizeFriends; i++)
+	{
+		inFile >> first_name >> last_name;
+		inFile >> d >> m >> y;
+		name = first_name + " " + last_name;
+		Friend* f = new Friend(name, d, m, y);
+		friends.push_back(f);
+	}
+	char c;
+	inFile >> sizeFanPage;
+	for (int i = 0; i < sizeFanPage; i++)
+	{
+		getline(inFile, name);
+		FanPage* p = new FanPage(name);
+		fanPages.push_back(p);
+	}
+
+
+	//friends and pages list of eatch friend
+	for (int i = 0; i < friends.size(); i++)
+	{
+
+		readFriendsToFile(inFile, *friends[i]);
+		readFanPageToFile(inFile, *friends[i]);
+	}
+
+	//fans list of eatch fan page
+	for (int i = 0; i < fanPages.size(); i++)
+	{
+		readFriendsToFile(inFile, *fanPages[i]);
+	}
+}
+
+//read friends of friend f from file
+void Facebook::readFriendsToFile(ifstream& file, Friend& f)
+{
+	int size;
+	string name;
+	Friend* newfriend;
+	file >> size;
+	string first_name, last_name;
+	for (int i = 0; i < size; i++)
+	{
+
+		file >> first_name >> last_name;
+		name = first_name + " " + last_name;
+		if (isNameExist(name))
+		{
+			newfriend = findFriendbyName(name);
+			f.addFriend(*newfriend);
+		}
+		else
+			throw invalid_argument("Name of friend doesn't exist");
+
+	}
+}
+
+//read fans of p from file
+void Facebook::readFriendsToFile(ifstream& file, FanPage& p)
+{
+	int size;
+	string name;
+	Friend* newfriend;
+	file >> size;
+	string first_name, last_name;
+	for (int i = 0; i < size; i++)
+	{
+		file >> first_name >> last_name;
+		name = first_name + " " + last_name;
+		if (isNameExist(name))
+		{
+			newfriend = findFriendbyName(name);
+			p.addFriend(*newfriend);
+		}
+		else
+			throw invalid_argument("Name of friend doesn't exist");
+
+	}
+	
+}
+
+//read fan pages friend f likes from file
+void Facebook::readFanPageToFile(ifstream& file, Friend& f)
+{
+	int size;
+	string name;
+	FanPage* newfanPage;
+	file >> size;
+	string first_name, last_name;
+	for (int i = 0; i < size; i++)
+	{
+		getline(file, name);
+		newfanPage = findFanPagebyName(name);
+		if (newfanPage != nullptr)
+		{
+			f.addFanPage(*newfanPage);
+		}
+		else
+			throw invalid_argument("Name of fan page doesn't exist");
+
+	}
+
+}
+
+void Facebook::updateReadFile(ifstream& inFile, ofstream& outFile) const
+{
+	string line;
+	while (getline(inFile, line)) 
+	{
+		outFile << line << "\n";
 	}
 }

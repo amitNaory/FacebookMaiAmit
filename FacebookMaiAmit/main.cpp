@@ -9,17 +9,31 @@ int main() {
 	Facebook network;
 	try
 	{
-		network.initial(inFile);
+		network.readDataFromFile(inFile);
+		//network.initial(inFile);
 		network.start();
+		
+		network.saveDataToFile(outFile);
 		network.freeFriends();
 		network.freeFanPages();
-		network.saveDataToFile(outFile);
-		inFile.close();
-		outFile.close();
 		cout << "Thank you for using Facebook!" << endl;
 	}
 	catch (const exception& e)
 	{
 		cout << e.what() << endl;
 	}
+
+	inFile.close();
+	outFile.close();
+
+	ofstream readFile("facebook.txt");
+	ifstream writeFile("outFacebook.txt");
+	
+	network.updateReadFile(writeFile, readFile);
+	
+	readFile.close();
+	writeFile.close();
+
+
+	return 0;
 }

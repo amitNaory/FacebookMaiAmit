@@ -1,0 +1,28 @@
+4
+Mai Chaouat
+19 8 1998
+Amit Naory
+20 1 1997
+Ran Danker
+1 1 1980
+amitush Naory
+27 12 1997
+3
+
+Please give us A
+We love cpp
+2
+Amit Naory
+Ran Danker
+2
+
+
+0
+0
+0
+0
+0
+0
+0
+0
+0
