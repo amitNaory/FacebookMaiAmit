@@ -617,9 +617,12 @@ void Facebook::readFriendsToFile(ifstream& file, Friend& f)
 	string name;
 	Friend* newfriend;
 	file >> size;
+	string first_name, last_name;
 	for (int i = 0; i < size; i++)
 	{
-		file >> name;
+
+		file >> first_name >> last_name;
+		name = first_name + " " + last_name;
 		if (isNameExist(name))
 		{
 			newfriend = findFriendbyName(name);
@@ -638,9 +641,11 @@ void Facebook::readFriendsToFile(ifstream& file, FanPage& p)
 	string name;
 	Friend* newfriend;
 	file >> size;
+	string first_name, last_name;
 	for (int i = 0; i < size; i++)
 	{
-		file >> name;
+		file >> first_name >> last_name;
+		name = first_name + " " + last_name;
 		if (isNameExist(name))
 		{
 			newfriend = findFriendbyName(name);
@@ -660,9 +665,10 @@ void Facebook::readFanPageToFile(ifstream& file, Friend& f)
 	string name;
 	FanPage* newfanPage;
 	file >> size;
+	string first_name, last_name;
 	for (int i = 0; i < size; i++)
 	{
-		file >> name;
+		getline(file, name);
 		newfanPage = findFanPagebyName(name);
 		if (newfanPage != nullptr)
 		{
